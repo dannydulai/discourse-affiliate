@@ -8,6 +8,7 @@ class AffiliateProcessor
       if code.present?
         original_query_array = URI.decode_www_form(String(uri.query)).to_h
         query_array = [["tag", code]]
+        query_array << ['me', original_query_array['me']] if original_query_array['me'].present?
         query_array << ['node', original_query_array['node']] if original_query_array['node'].present?
         uri.query = URI.encode_www_form(query_array)
         uri.to_s
